@@ -1,0 +1,15 @@
+{
+  "name": "api-kanban",
+  "version": "1.0.0",
+  "main": "apiKanban.js",
+  "repository": "https://github.com/russoetto/api-kanban.git",
+  "author": "Gabriel Rossetto <rossetto.2306@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node apiKanban.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
