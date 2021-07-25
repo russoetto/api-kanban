@@ -8,9 +8,9 @@ const cardsController = new CardsController();
 
 routes.post('/login', loginController.login);
 
-routes.get('/cards', cardsController.getCards);
-routes.post('/cards', cardsController.postCard);
-routes.put('/cards/:id', cardsController.putCard);
-routes.delete('/cards/:id', cardsController.deleteCard);
+routes.get('/cards', loginController.validateToken, cardsController.getCards);
+routes.post('/cards', loginController.validateToken, cardsController.postCard);
+routes.put('/cards/:id', loginController.validateToken, cardsController.putCard);
+routes.delete('/cards/:id', loginController.validateToken, cardsController.deleteCard);
 
 module.exports = routes;
