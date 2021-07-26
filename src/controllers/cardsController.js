@@ -8,7 +8,7 @@ module.exports = class CardsController {
   async getCards(request, response) {
     try {
       let cards = await Card.findAll();
-      response.status(200).json({ cards });
+      response.status(200).json(cards);
     } catch (err) {
       response.status(500).json({ message: err.toString() })
     }
@@ -25,7 +25,7 @@ module.exports = class CardsController {
         }
 
         await Card.create(card);
-        response.status(201).json({ card });
+        response.status(201).json(card);
       } else {
         response.status(400).json({ message: 'Card inválido.'});
       }
@@ -44,7 +44,7 @@ module.exports = class CardsController {
             card.conteudo = request.body.conteudo;
             card.lista = request.body.lista;
             await card.save();
-            response.status(200).json({ card });
+            response.status(200).json(card);
           } catch (err) {
             response.status(500).json({ message: err.toString() });
           }
@@ -66,7 +66,7 @@ module.exports = class CardsController {
       if (card) {
         card.destroy();
         cards.splice(cards.indexOf(card), 1);
-        response.status(200).json({ cards });
+        response.status(200).json(cards);
       } else {
         response.status(404).json({ message: 'Card não existente' });
       }
