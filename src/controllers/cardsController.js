@@ -34,7 +34,7 @@ module.exports = class CardsController {
     }
   }
 
-  async putCard(request, response) {
+  async putCard(request, response, next) {
     if (request.params.id && request.body.id === request.params.id) {
       if (request.body.titulo && request.body.conteudo && request.body.lista) {
         let card = await Card.findByPk(request.body.id);
@@ -44,7 +44,8 @@ module.exports = class CardsController {
             card.conteudo = request.body.conteudo;
             card.lista = request.body.lista;
             await card.save();
-            response.status(200).json(card);
+            request.body.card = card;
+            next();
           } catch (err) {
             response.status(500).json({ message: err.toString() });
           }
@@ -59,14 +60,16 @@ module.exports = class CardsController {
     }
   }
 
-  async deleteCard(request, response) {
+  async deleteCard(request, response, next) {
     if (request.params.id) {
       let cards = await Card.findAll();
       let card = cards.find(c => c.id === request.params.id);
       if (card) {
         card.destroy();
         cards.splice(cards.indexOf(card), 1);
-        response.status(200).json(cards);
+        request.body.card = card;
+        request.body.cards = cards;
+        next();
       } else {
         response.status(404).json({ message: 'Card não existente' });
       }
